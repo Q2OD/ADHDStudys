@@ -33,9 +33,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
     width: 100%;
-    top: 0;
     z-index: 1000;
 }
 
@@ -225,4 +223,47 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #5a4fdf;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 6rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+
+    form {
+        max-width: 90%;
+    }
+}
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
+}
+
+.auth-container form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-container p {
+    margin-top: 1rem;
+}
+
+.auth-container a {
+    color: var(--primary-color);
 }
