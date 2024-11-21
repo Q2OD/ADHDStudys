@@ -237,6 +237,40 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #5a4fdf;
 }
+.testimonials, .about, .bottom-cta {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonial-card {
+    background-color: var(--background-light);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-author {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.bottom-cta {
+    background-color: var(--primary-color);
+    color: var(--background-light);
+    padding: 4rem 2rem;
+}
+
+.bottom-cta h2 {
+    margin-bottom: 2rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero {
