@@ -1,28 +1,32 @@
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask import Flask
 import os
+from extensions import db, login_manager
+from models.user import User
 
-# Initialize Flask app
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///adhd_study.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///adhd_study.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize SQLAlchemy
-db = SQLAlchemy(app)
+    # Initialize extensions
+    db.init_app(app)
+    login_manager.init_app(app)
+    login_manager.login_view = 'auth.login'
 
-# Initialize Login Manager
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'auth.login'
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
-# Import and register blueprints
-from routes.main import main_bp
-from routes.auth import auth_bp
+    # Register blueprints
+    from routes.main import main_bp
+    from routes.auth import auth_bp
+    app.register_blueprint(main_bp)
+    app.register_blueprint(auth_bp)
 
-app.register_blueprint(main_bp)
-app.register_blueprint(auth_bp)
+    return app
+
+app = create_app()
 
 if __name__ == '__main__':
     with app.app_context():
