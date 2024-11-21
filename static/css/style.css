@@ -185,9 +185,16 @@ footer {
     background-color: var(--primary-color);
     color: var(--background-light);
     font-size: 0.9rem;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 footer a {
