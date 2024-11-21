@@ -114,16 +114,18 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: var(--background-light);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
-    color: var(--background-light);
-    border: none;
+    background-color: var(--background-light);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
 }
 
 .btn-primary:hover, .btn-secondary:hover {
@@ -152,7 +154,7 @@ body {
 .feature-card {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 20px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -241,7 +243,7 @@ label {
 input[type="email"],
 input[type="password"] {
     padding: 0.8rem;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     background-color: #f5f5f5;
     color: var(--text-dark);
@@ -256,11 +258,11 @@ input[type="password"]:focus {
 }
 
 button[type="submit"] {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: var(--secondary-color);
+    color: var(--background-light);
     border: none;
     padding: 0.8rem;
-    border-radius: 5px;
+    border-radius: 30px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
@@ -285,7 +287,7 @@ button[type="submit"]:hover {
 .testimonial-card {
     background-color: var(--background-light);
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
