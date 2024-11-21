@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #7c4dff;
-    --secondary-color: #ff4081;
-    --background-dark: #2c2a3e;
-    --text-light: #f5f5f5;
-    --text-gray: #bdbdbd;
-    --accent-color: #00e5ff;
+    --primary-color: #6200ee;
+    --secondary-color: #ff9800;
+    --background-light: #ffffff;
+    --text-dark: #212121;
+    --text-gray: #757575;
+    --accent-color: #03dac6;
     --spacing: 1rem;
 }
 
@@ -16,8 +16,8 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-dark);
-    color: var(--text-light);
+    background-color: var(--background-light);
+    color: var(--text-dark);
     line-height: 1.6;
 }
 
@@ -89,13 +89,13 @@ body {
 
 .btn-primary {
     background-color: var(--primary-color);
-    color: var(--text-light);
+    color: var(--background-light);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .btn-secondary {
-    background-color: var(--accent-color);
-    color: var(--background-dark);
+    background-color: var(--secondary-color);
+    color: var(--background-light);
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -155,9 +155,12 @@ body {
 footer {
     text-align: center;
     padding: 2rem;
-    background-color: #111;
-    color: var(--text-light);
+    background-color: var(--primary-color);
+    color: var(--background-light);
     font-size: 0.9rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 footer a {
