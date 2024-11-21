@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}ADHD Study - Your Study Companion{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Study Smarter, Not Harder</h1>
+    <p class="subtitle">AI-powered study tools designed specifically for ADHD minds</p>
+    <div class="cta-buttons">
+        <a href="{{ url_for('auth.signup') }}" class="btn-primary">Get Started Free</a>
+        <a href="#features" class="btn-secondary">Learn More</a>
+    </div>
+</div>
+
+<section id="features" class="features">
+    <h2>Why Choose ADHD Study?</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <i class="fas fa-brain"></i>
+            <h3>ADHD-Friendly Design</h3>
+            <p>Intuitive interface designed to minimize distractions and maximize focus</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-magic"></i>
+            <h3>AI-Powered Study Guides</h3>
+            <p>Transform any content into engaging flashcards and quizzes</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-clock"></i>
+            <h3>Time Management</h3>
+            <p>Built-in tools to help you study efficiently and stay on track</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
