@@ -1,9 +1,10 @@
 :root {
-    --primary-color: #6c63ff;
-    --secondary-color: #ff6584;
-    --background-dark: #1f1d2b;
-    --text-light: #f0f0f0;
-    --text-gray: #a0a0a0;
+    --primary-color: #7c4dff;
+    --secondary-color: #ff4081;
+    --background-dark: #2c2a3e;
+    --text-light: #f5f5f5;
+    --text-gray: #bdbdbd;
+    --accent-color: #00e5ff;
     --spacing: 1rem;
 }
 
@@ -89,12 +90,14 @@ body {
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--text-light);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .btn-secondary {
-    background-color: transparent;
-    color: var(--text-light);
-    border: 2px solid var(--primary-color);
+    background-color: var(--accent-color);
+    color: var(--background-dark);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .btn-primary:hover, .btn-secondary:hover {
@@ -120,11 +123,17 @@ body {
 }
 
 .feature-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .feature-card:hover {
