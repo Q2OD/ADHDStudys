@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #6200ee;
+    --primary-color: #4A148C;
     --secondary-color: #ff9800;
     --background-light: #ffffff;
     --text-dark: #212121;
@@ -60,14 +60,14 @@ body {
 .hero {
     padding: 8rem 2rem 4rem;
     text-align: center;
-    background: linear-gradient(rgba(98, 0, 238, 0.9), rgba(98, 0, 238, 0.9)),
-                url('../images/hero-bg.jpg') center/cover;
+    background: linear-gradient(#7E57C2, #E1BEE7);
+    margin-top: 40px;
 }
 
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: #FFFFFF;
 }
 
 .hero .subtitle {
@@ -102,6 +102,7 @@ body {
 
 .btn-primary:hover, .btn-secondary:hover {
     transform: translateY(-2px);
+    opacity: 0.9;
 }
 
 /* Features Section */
