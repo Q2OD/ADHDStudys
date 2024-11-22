@@ -2,8 +2,6 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db
 from datetime import datetime
-from models.study_progress import StudySession, StudyMaterial, UserProgress
-
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -19,6 +17,11 @@ class User(UserMixin, db.Model):
     preferences = db.Column(db.JSON, default={})
     total_study_time = db.Column(db.Integer, default=0)  # in minutes
     achievement_points = db.Column(db.Integer, default=0)
+
+    # Relationships defined using string references
+    study_sessions = db.relationship('StudySession', backref='user', lazy=True)
+    study_materials = db.relationship('StudyMaterial', backref='user', lazy=True)
+    progress = db.relationship('UserProgress', backref='user', lazy=True)
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

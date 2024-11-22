@@ -2,6 +2,7 @@ from extensions import db
 from datetime import datetime
 
 class StudySession(db.Model):
+    __tablename__ = 'study_session'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     start_time = db.Column(db.DateTime, default=datetime.utcnow)
