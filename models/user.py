@@ -43,7 +43,7 @@ class User(UserMixin, db.Model):
     def can_generate_study_guide(self):
         return self.token_balance >= self.get_token_cost()
         
-    # Relationships
-    study_sessions = db.relationship('StudySession', backref='user', lazy='dynamic')
-    study_materials = db.relationship('StudyMaterial', backref='user', lazy='dynamic')
-    progress = db.relationship('UserProgress', backref='user', lazy='dynamic')
+    # Relationships - defined after all models are loaded
+    study_sessions = db.relationship('StudySession', backref=db.backref('user', lazy=True), lazy='dynamic')
+    study_materials = db.relationship('StudyMaterial', backref=db.backref('user', lazy=True), lazy='dynamic')
+    progress = db.relationship('UserProgress', backref=db.backref('user', lazy=True), lazy='dynamic')
