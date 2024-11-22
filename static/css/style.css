@@ -249,6 +249,7 @@ input[type="password"] {
     color: var(--text-dark);
     font-size: 1rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
 input[type="email"]:focus,
@@ -395,8 +396,8 @@ button[type="submit"]:hover {
     border-radius: 10px;
 }
 
-.alert-info {
-    background-color: #E8EAF6;
-    color: #3F51B5;
-    border: 1px solid #3F51B5;
+.alert-danger {
+    background-color: #FFEBEE;
+    color: #B71C1C;
+    border: 1px solid #B71C1C;
 }
