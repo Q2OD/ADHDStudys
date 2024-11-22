@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from models.user import User
 from extensions import db
 
@@ -40,4 +40,16 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
-from flask import flash
+
+@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # TODO: Send password reset email
+            flash('Password reset instructions have been sent to your email.')
+            return redirect(url_for('auth.login'))
+        else:
+            flash('Email not found. Please try again.')
+    return render_template('auth/forgot_password.html')

@@ -3,6 +3,45 @@
 {% block content %}
 <div class="dashboard-container">
     <h2>Welcome, {{ current_user.email }}!</h2>
-    <!-- Add dashboard content here -->
+    <p>Tokens available: {{ current_user.token_balance }}</p>
+
+    <h3>Generate Study Guide</h3>
+    <form id="study-guide-form">
+        <div>
+            <label for="input-text">Input Text or Topic:</label>
+            <textarea id="input-text" name="input_text" rows="5" required></textarea>
+        </div>
+        <div>
+            <label for="format">Output Format:</label>
+            <select id="format" name="format">
+                <option value="flashcards">Flashcards</option>
+                <option value="quiz">Quiz</option>
+                <option value="summary">Summary</option>
+            </select>
+        </div>
+        <button type="submit">Generate</button>
+    </form>
+
+    <div id="study-guide-output"></div>
 </div>
+
+<script>
+    document.getElementById('study-guide-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+        const response = await fetch('/generate-study-guide', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById('study-guide-output').innerHTML = data.study_guide;
+        } else {
+            alert(data.error);
+        }
+    });
+</script>
 {% endblock %}
