@@ -16,7 +16,7 @@ def create_app():
     # Initialize extensions
     db.init_app(app)
     login_manager.init_app(app)
-    login_manager.login_view = 'auth.login'
+    login_manager.login_view = 'auth.signup'
 
     @login_manager.user_loader
     def load_user(user_id):

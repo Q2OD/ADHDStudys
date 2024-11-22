@@ -389,3 +389,14 @@ button[type="submit"]:hover {
 .pricing-card li {
     margin-bottom: 0.5rem;
 }
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.alert-info {
+    background-color: #E8EAF6;
+    color: #3F51B5;
+    border: 1px solid #3F51B5;
+}
