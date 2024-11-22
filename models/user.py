@@ -2,6 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db
 from datetime import datetime
+from models.study_progress import StudySession, StudyMaterial, UserProgress
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -43,7 +44,7 @@ class User(UserMixin, db.Model):
     def can_generate_study_guide(self):
         return self.token_balance >= self.get_token_cost()
         
-    # Relationships - defined after all models are loaded
-    study_sessions = db.relationship('StudySession', backref=db.backref('user', lazy=True), lazy='dynamic')
-    study_materials = db.relationship('StudyMaterial', backref=db.backref('user', lazy=True), lazy='dynamic')
-    progress = db.relationship('UserProgress', backref=db.backref('user', lazy=True), lazy='dynamic')
+    # Relationships
+    study_sessions = db.relationship(StudySession, backref='user', lazy='dynamic')
+    study_materials = db.relationship(StudyMaterial, backref='user', lazy='dynamic')
+    progress = db.relationship(UserProgress, backref='user', lazy='dynamic')
