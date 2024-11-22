@@ -2,6 +2,7 @@ import os
 import stripe
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
+from extensions import db
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
