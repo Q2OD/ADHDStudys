@@ -401,3 +401,27 @@ button[type="submit"]:hover {
     color: #B71C1C;
     border: 1px solid #B71C1C;
 }
+#alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.alert-danger {
+    background-color: #FFEBEE;
+    color: #B71C1C;
+    border: 1px solid #B71C1C;
+}
+
+.alert-hidden {
+    opacity: 0;
+}
