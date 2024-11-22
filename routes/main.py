@@ -1,14 +1,27 @@
 import os
 import stripe
-import openai
+from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, request, jsonify
 from flask_login import login_required, current_user
 from extensions import db
+from services.claude_service import ClaudeService
+from functools import wraps
+import time
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
-openai.api_key = os.environ.get('OPENAI_API_KEY')
+claude_service = ClaudeService()
 
 main_bp = Blueprint('main', __name__)
+
+def rate_limit(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if current_user.last_api_call:
+            time_diff = (datetime.utcnow() - current_user.last_api_call).total_seconds()
+            if time_diff < 5:  # 5 seconds between calls
+                return jsonify({'error': 'Please wait before making another request'}), 429
+        return f(*args, **kwargs)
+    return decorated_function
 
 @main_bp.route('/')
 def home():
@@ -25,29 +38,35 @@ def dashboard():
 
 @main_bp.route('/generate-study-guide', methods=['POST'])
 @login_required
+@rate_limit
 def generate_study_guide():
-    if current_user.tokens <= 0:
+    if not current_user.can_generate_study_guide():
         return jsonify({'error': 'Insufficient tokens. Please upgrade your plan.'}), 402
 
     input_text = request.form.get('input_text')
-    format = request.form.get('format')
+    format_type = request.form.get('format')
 
-    prompt = f"Convert the following text into a {format} format for studying:\n\n{input_text}"
+    if not input_text or not format_type:
+        return jsonify({'error': 'Missing required parameters'}), 400
+
+    # Update API call tracking
+    current_user.last_api_call = datetime.utcnow()
+    current_user.api_calls_count += 1
     
-    response = openai.Completion.create(
-        engine='text-davinci-003',
-        prompt=prompt,
-        max_tokens=150,
-        n=1,
-        stop=None,
-        temperature=0.7,
-    )
-
-    study_guide = response.choices[0].text.strip()
-    current_user.tokens -= 1
+    # Generate study guide
+    study_guide = claude_service.generate_study_guide(input_text, format_type)
+    
+    # Deduct tokens
+    token_cost = current_user.get_token_cost()
+    current_user.token_balance -= token_cost
+    
     db.session.commit()
 
-    return jsonify({'study_guide': study_guide})
+    return jsonify({
+        'study_guide': study_guide,
+        'tokens_remaining': current_user.token_balance,
+        'token_cost': token_cost
+    })
 
 @main_bp.route('/create-checkout-session', methods=['POST'])
 @login_required
