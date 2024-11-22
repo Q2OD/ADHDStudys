@@ -1,9 +1,6 @@
 import os
 import stripe
 from flask import Flask
-
-stripe.api_key = os.environ.get('sk_test_51QNhYHKkNhYowr218u21VXIVZsyU46k2uL6hLlWdd8zK13uRk5uLLCIjqvpFvLhtldshmQlHHfeULPeMPcT21Xix00UiN2sFZZ')
-import os
 from extensions import db, login_manager
 from models.user import User
 

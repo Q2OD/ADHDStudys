@@ -1,27 +1,22 @@
 import os
 import stripe
-from flask import Blueprint, render_template, url_for, redirect
+import openai
+from flask import Blueprint, render_template, url_for, redirect, request, jsonify
 from flask_login import login_required, current_user
 from extensions import db
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
 def home():
     return render_template('index.html')
+
 @main_bp.route('/pricing')
 def pricing():
     return render_template('pricing.html')
-import os
-import openai
-from flask import Blueprint, render_template, request, jsonify
-from flask_login import login_required, current_user
-
-main_bp = Blueprint('main', __name__)
-
-openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 @main_bp.route('/dashboard')
 @login_required
