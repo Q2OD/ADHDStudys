@@ -12,6 +12,17 @@ class User(UserMixin, db.Model):
     last_token_reset = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
     api_calls_count = db.Column(db.Integer, default=0, nullable=True)
     last_api_call = db.Column(db.DateTime, nullable=True)
+    
+    # New fields for enhanced features
+    display_name = db.Column(db.String(50))
+    preferences = db.Column(db.JSON, default={})
+    total_study_time = db.Column(db.Integer, default=0)  # in minutes
+    achievement_points = db.Column(db.Integer, default=0)
+    
+    # Relationships
+    study_sessions = db.relationship('StudySession', backref='user', lazy=True)
+    study_materials = db.relationship('StudyMaterial', backref='user', lazy=True)
+    progress = db.relationship('UserProgress', backref='user', lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
