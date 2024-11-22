@@ -301,6 +301,7 @@ button[type="submit"]:hover {
     color: var(--background-light);
     padding: 4rem 2rem;
     border-radius: 20px;
+    margin-bottom: 4rem;
 }
 
 .bottom-cta h2 {
