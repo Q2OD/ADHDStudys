@@ -1,4 +1,8 @@
+import os
+import stripe
 from flask import Flask
+
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 import os
 from extensions import db, login_manager
 from models.user import User

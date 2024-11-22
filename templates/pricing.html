@@ -12,7 +12,10 @@
                 <li>Access to basic study tools like flashcards and quizzes</li>
                 <li>Limited save functionality (up to 5 saved study guides)</li>
             </ul>
-            <a href="#" class="btn-primary">Get Started</a>
+            <form action="{{ url_for('main.create_checkout_session') }}" method="POST">
+              <input type="hidden" name="tier" value="free">
+              <button type="submit" class="btn-primary">Get Started</button>
+            </form>  
         </div>
         <div class="pricing-card">
             <h3>Standard Tier (Core Features)</h3>
@@ -24,7 +27,10 @@
                 <li>Access to advanced study tools (e.g., customizable quizzes, time management features)</li>
                 <li>Early access to beta features</li>
             </ul>
-            <a href="#" class="btn-primary">Subscribe</a>
+            <form action="{{ url_for('main.create_checkout_session') }}" method="POST">
+              <input type="hidden" name="tier" value="standard">
+              <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
         </div>
         <div class="pricing-card">
             <h3>Premium Tier (High Usage)</h3>
@@ -37,7 +43,10 @@
                 <li>Priority support for faster customer service</li>
                 <li>Ability to share study guides with other users</li>
             </ul>
-            <a href="#" class="btn-primary">Subscribe</a>
+            <form action="{{ url_for('main.create_checkout_session') }}" method="POST">
+              <input type="hidden" name="tier" value="premium">  
+              <button type="submit" class="btn-primary">Subscribe</button>
+            </form>
         </div>
     </div>
     <div class="pay-per-use">
