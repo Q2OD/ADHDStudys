@@ -1,5 +1,6 @@
 from extensions import db
 from datetime import datetime
+from models.user import User  # Add this import
 
 class StudySession(db.Model):
     __tablename__ = 'study_session'

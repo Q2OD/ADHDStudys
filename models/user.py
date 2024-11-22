@@ -18,11 +18,6 @@ class User(UserMixin, db.Model):
     total_study_time = db.Column(db.Integer, default=0)  # in minutes
     achievement_points = db.Column(db.Integer, default=0)
 
-    # Relationships defined using string references
-    study_sessions = db.relationship('StudySession', backref='user', lazy=True)
-    study_materials = db.relationship('StudyMaterial', backref='user', lazy=True)
-    progress = db.relationship('UserProgress', backref='user', lazy=True)
-    
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -48,7 +43,7 @@ class User(UserMixin, db.Model):
     def can_generate_study_guide(self):
         return self.token_balance >= self.get_token_cost()
         
-    # Relationships - defined after all models are loaded
-    study_sessions = db.relationship('StudySession', backref='user', lazy=True)
-    study_materials = db.relationship('StudyMaterial', backref='user', lazy=True)
-    progress = db.relationship('UserProgress', backref='user', lazy=True)
+    # Relationships
+    study_sessions = db.relationship('StudySession', backref='user', lazy='dynamic')
+    study_materials = db.relationship('StudyMaterial', backref='user', lazy='dynamic')
+    progress = db.relationship('UserProgress', backref='user', lazy='dynamic')
