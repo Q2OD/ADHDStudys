@@ -9,9 +9,9 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     subscription_type = db.Column(db.String(20), default='free')
     token_balance = db.Column(db.Integer, default=10)
-    last_token_reset = db.Column(db.DateTime, default=datetime.utcnow)
-    api_calls_count = db.Column(db.Integer, default=0)
-    last_api_call = db.Column(db.DateTime)
+    last_token_reset = db.Column(db.DateTime, default=datetime.utcnow, nullable=True)
+    api_calls_count = db.Column(db.Integer, default=0, nullable=True)
+    last_api_call = db.Column(db.DateTime, nullable=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
