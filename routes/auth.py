@@ -41,15 +41,3 @@ def logout():
     logout_user()
     return redirect(url_for('main.home'))
 from flask import flash
-@auth_bp.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user = User.query.filter_by(email=email).first()
-        if user and user.check_password(password):
-            login_user(user)
-            return redirect(url_for('main.dashboard'))
-        else:
-            flash('Invalid email or password. Please try again.', 'error')
-    return render_template('auth/login.html')
