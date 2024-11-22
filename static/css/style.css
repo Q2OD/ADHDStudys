@@ -425,3 +425,29 @@ button[type="submit"]:hover {
 .alert-hidden {
     opacity: 0;
 }
+.auth-panel {
+    background-color: var(--background-light);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.auth-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.forgot-password {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

@@ -2,17 +2,22 @@
 
 {% block content %}
 <div class="auth-container">
-    <h2>Sign Up</h2>
-    <form method="post">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" name="email" required>
+    <div class="auth-panel">
+        <h2>Sign Up</h2>
+        <form method="post">
+            <div>
+                <label for="email">Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <div class="auth-links">
+                <button type="submit" class="btn-primary">Sign Up</button>
+            </div>
+        </form>
+        <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>.</p>
     </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" required>
-    </div>
-        <button type="submit">Sign Up</button>
-    </form>
 </div>
 {% endblock %}  
