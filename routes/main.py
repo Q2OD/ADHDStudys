@@ -13,10 +13,45 @@ def home():
 @main_bp.route('/pricing')
 def pricing():
     return render_template('pricing.html')
+import os
+import openai
+from flask import Blueprint, render_template, request, jsonify
+from flask_login import login_required, current_user
+
+main_bp = Blueprint('main', __name__)
+
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+
 @main_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', user=current_user)
+
+@main_bp.route('/generate-study-guide', methods=['POST'])
+@login_required
+def generate_study_guide():
+    if current_user.tokens <= 0:
+        return jsonify({'error': 'Insufficient tokens. Please upgrade your plan.'}), 402
+
+    input_text = request.form.get('input_text')
+    format = request.form.get('format')
+
+    prompt = f"Convert the following text into a {format} format for studying:\n\n{input_text}"
+    
+    response = openai.Completion.create(
+        engine='text-davinci-003',
+        prompt=prompt,
+        max_tokens=150,
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+
+    study_guide = response.choices[0].text.strip()
+    current_user.tokens -= 1
+    db.session.commit()
+
+    return jsonify({'study_guide': study_guide})
 
 @main_bp.route('/create-checkout-session', methods=['POST'])
 @login_required
