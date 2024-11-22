@@ -2,28 +2,51 @@
 
 {% block content %}
 <div class="pricing-container">
-    <h2>Pricing Plans</h2>
+    <h2>Subscription Plans</h2>
     <div class="pricing-grid">
         <div class="pricing-card">
-            <h3>Basic</h3>
-            <p class="price">$9.99/month</p>
+            <h3>Free Tier (Basic)</h3>
+            <p class="price">$0/month</p>
             <ul>
-                <li>Access to all study tools</li>
-                <li>Unlimited flashcards</li>
-                <li>Basic analytics</li>
+                <li>10 tokens per month for limited AI usage (e.g., 2 study guides)</li>
+                <li>Access to basic study tools like flashcards and quizzes</li>
+                <li>Limited save functionality (up to 5 saved study guides)</li>
             </ul>
-            <a href="#" class="btn-primary">Choose Plan</a>
+            <a href="#" class="btn-primary">Get Started</a>
         </div>
         <div class="pricing-card">
-            <h3>Pro</h3>
-            <p class="price">$19.99/month</p>
+            <h3>Standard Tier (Core Features)</h3>
+            <p class="price">$15/month</p>
             <ul>
-                <li>Everything in Basic</li>
-                <li>Advanced analytics</li>
-                <li>Priority support</li>
+                <li>120 tokens per month</li>
+                <li>Reduced token cost for AI study guides (4 tokens each)</li>
+                <li>Unlimited saving of study guides</li>
+                <li>Access to advanced study tools (e.g., customizable quizzes, time management features)</li>
+                <li>Early access to beta features</li>
             </ul>
-            <a href="#" class="btn-primary">Choose Plan</a>
+            <a href="#" class="btn-primary">Subscribe</a>
         </div>
+        <div class="pricing-card">
+            <h3>Premium Tier (High Usage)</h3>
+            <p class="price">$30/month</p>
+            <ul>
+                <li>300 tokens per month</li>
+                <li>Lowest token cost for AI study guides (3 tokens each)</li>
+                <li>All advanced tools and analytics at no additional token cost</li>
+                <li>Personalized study plans tailored to individual learning needs</li>
+                <li>Priority support for faster customer service</li>
+                <li>Ability to share study guides with other users</li>
+            </ul>
+            <a href="#" class="btn-primary">Subscribe</a>
+        </div>
+    </div>
+    <div class="pay-per-use">
+        <h3>Pay-Per-Use Add-On (Extra Tokens)</h3>
+        <ul>
+            <li>$5 for 50 tokens</li>
+            <li>$10 for 120 tokens</li>
+        </ul>
+        <p>Allows users to purchase extra tokens as needed. Subscriptions remain more cost-effective.</p>
     </div>
 </div>
 {% endblock %}
