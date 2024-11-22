@@ -22,13 +22,13 @@ class ClaudeService:
         prompt = f"{prompts.get(format_type, prompts['summary'])}\n\n{input_text}"
         
         try:
-            response = self.client.messages.create(
+            response = self.client.complete(
+                prompt=prompt,
                 model="claude-instant-1.2",
-                max_tokens=1500,
-                temperature=0.7,
-                messages=[{"role": "user", "content": prompt}]
+                max_tokens_to_sample=1500,
+                temperature=0.7
             )
-            return response.content
+            return response.completion
         except Exception as e:
             return f"Error generating study guide: {str(e)}"
 

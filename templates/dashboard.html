@@ -2,46 +2,128 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <h2>Welcome, {{ current_user.email }}!</h2>
-    <p>Tokens available: {{ current_user.token_balance }}</p>
-
-    <h3>Generate Study Guide</h3>
-    <form id="study-guide-form">
-        <div>
-            <label for="input-text">Input Text or Topic:</label>
-            <textarea id="input-text" name="input_text" rows="5" required></textarea>
+    <div class="dashboard-header">
+        <h2>Welcome, {{ current_user.email }}!</h2>
+        <div class="token-counter">
+            <i class="fas fa-coins"></i>
+            <div class="token-progress">
+                <div class="progress-bar" style="width: {{ (current_user.token_balance / current_user.get_monthly_tokens()) * 100 }}%"></div>
+            </div>
+            <span>{{ current_user.token_balance }} tokens remaining</span>
         </div>
-        <div>
-            <label for="format">Output Format:</label>
-            <select id="format" name="format">
-                <option value="flashcards">Flashcards</option>
-                <option value="quiz">Quiz</option>
-                <option value="summary">Summary</option>
-            </select>
-        </div>
-        <button type="submit">Generate</button>
-    </form>
+    </div>
 
-    <div id="study-guide-output"></div>
+    <div class="study-guide-generator">
+        <h3><i class="fas fa-magic"></i> Generate Study Guide</h3>
+        <form id="study-guide-form">
+            <div class="form-group">
+                <label for="input-text">
+                    <i class="fas fa-book"></i>
+                    Input Text or Topic
+                    <span class="tooltip" data-tooltip="Paste your study material or describe your topic here">?</span>
+                </label>
+                <textarea 
+                    id="input-text" 
+                    name="input_text" 
+                    rows="5" 
+                    required
+                    placeholder="Paste your text or describe what you want to study..."
+                ></textarea>
+            </div>
+            <div class="form-group">
+                <label for="format">
+                    <i class="fas fa-list-alt"></i>
+                    Output Format
+                    <span class="tooltip" data-tooltip="Choose how you want your study guide formatted">?</span>
+                </label>
+                <select id="format" name="format">
+                    <option value="flashcards">📝 Flashcards</option>
+                    <option value="quiz">❓ Quiz</option>
+                    <option value="summary">📋 Summary</option>
+                </select>
+            </div>
+            <button type="submit" class="generate-btn">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                Generate Study Guide
+            </button>
+        </form>
+
+        <div id="error-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="error-message"></p>
+            </div>
+        </div>
+
+        <div id="study-guide-output" class="output-container"></div>
+    </div>
 </div>
 
 <script>
-    document.getElementById('study-guide-form').addEventListener('submit', async (e) => {
+    const form = document.getElementById('study-guide-form');
+    const errorModal = document.getElementById('error-modal');
+    const closeBtn = document.querySelector('.close-btn');
+    const outputContainer = document.getElementById('study-guide-output');
+
+    closeBtn.onclick = () => errorModal.style.display = 'none';
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+        
+        try {
+            const formData = new FormData(e.target);
+            const response = await fetch('/generate-study-guide', {
+                method: 'POST',
+                body: formData
+            });
 
-        const formData = new FormData(e.target);
-        const response = await fetch('/generate-study-guide', {
-            method: 'POST',
-            body: formData
-        });
+            const data = await response.json();
 
-        const data = await response.json();
-
-        if (response.ok) {
-            document.getElementById('study-guide-output').innerHTML = data.study_guide;
-        } else {
-            alert(data.error);
+            if (response.ok) {
+                outputContainer.innerHTML = `
+                    <div class="study-guide-content">
+                        <div class="content-header">
+                            <h4><i class="fas fa-check-circle"></i> Study Guide Generated</h4>
+                            <button onclick="copyToClipboard()" class="copy-btn">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <div class="content-body">${data.study_guide}</div>
+                    </div>
+                `;
+                
+                // Update token display
+                document.querySelector('.token-counter span').textContent = 
+                    `${data.tokens_remaining} tokens remaining`;
+                document.querySelector('.progress-bar').style.width = 
+                    `${(data.tokens_remaining / {{ current_user.get_monthly_tokens() }}) * 100}%`;
+            } else {
+                document.getElementById('error-message').textContent = data.error;
+                errorModal.style.display = 'block';
+            }
+        } catch (error) {
+            document.getElementById('error-message').textContent = 
+                'An error occurred. Please try again later.';
+            errorModal.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Generate Study Guide';
         }
     });
+
+    function copyToClipboard() {
+        const content = document.querySelector('.content-body').textContent;
+        navigator.clipboard.writeText(content);
+        const copyBtn = document.querySelector('.copy-btn');
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+        }, 2000);
+    }
 </script>
 {% endblock %}
